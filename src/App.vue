@@ -26,13 +26,7 @@ export default {
     }
   },
   created() {
-    setTimeout(() => {
-      this.fadeInApp = true
-    }, 500)
-
-    setTimeout(() => {
-      this.fadeInCount = true
-    }, 2000)
+    this.preload()
 
     setInterval(() => {
       this.tick()
@@ -54,6 +48,24 @@ export default {
       this.minutes = `${duration.minutes}`.padStart(2, "0")
       this.seconds = `${Math.floor(duration.seconds)}`.padStart(2, "0")
     },
+    preload() {
+      const img = new Image()
+      img.src = require("./assets/bg_1.jpg")
+      img.onload = () => {
+        console.log(img.src)
+        console.log("loaded!")
+        this.beginFadeIn()
+      }
+    },
+    beginFadeIn() {
+      setTimeout(() => {
+        this.fadeInApp = true
+      }, 500)
+
+      setTimeout(() => {
+        this.fadeInCount = true
+      }, 2000)
+    },
   },
 }
 </script>
@@ -70,6 +82,7 @@ export default {
   background-image: url("./assets/bg_1.jpg");
   background-position: center;
   background-size: cover;
+  background-repeat: no-repeat;
   transition: opacity 1.5s ease;
   opacity: 0;
 }
@@ -92,6 +105,9 @@ export default {
   font-size: 3.5rem;
   color: #121619;
   text-shadow: white 0px 0px 12px;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 10px 30px;
+  border-radius: 5px;
 }
 .copy {
   position: absolute;
@@ -103,5 +119,15 @@ export default {
 .copy > a {
   color: #ccc;
   text-decoration: none;
+}
+
+@media screen and (max-width: 767px) {
+  #app {
+    background-size: 230vw;
+  }
+
+  .time {
+    font-size: 2.5rem;
+  }
 }
 </style>

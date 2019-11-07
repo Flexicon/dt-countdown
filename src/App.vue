@@ -52,8 +52,6 @@ export default {
       const img = new Image()
       img.src = require("./assets/bg_1.jpg")
       img.onload = () => {
-        console.log(img.src)
-        console.log("loaded!")
         this.beginFadeIn()
       }
     },
